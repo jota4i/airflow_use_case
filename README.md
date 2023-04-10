@@ -2,6 +2,7 @@
 
 This repo add an Airflow instance and helps to undesrtand how it works.
 
+https://user-images.githubusercontent.com/129964889/230986212-c1dcdef6-d0a7-4d15-bd20-46b5ecd51d60.mp4
 
 ## What is this?
 
@@ -49,6 +50,10 @@ git clone https://github.com/jota4i/airflow_use_case.git
 cd airflow_use_case
 
 cp .env_example .env
+
+
+
+
 
 docker compose up
 
