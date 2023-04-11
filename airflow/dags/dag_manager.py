@@ -11,17 +11,16 @@ dag_parameters = {
 }
 
 # Parameters
-VEHICLE_TYPES = ["carros","caminhoes","motos"]
+VEHICLE_TYPES = ["carros", "caminhoes", "motos"]
 
 with DAG(
     dag_id="dag_manager",
     default_args=dag_parameters,
     description="Dag responsable from orchestrate FIPE pipeline.",
-    tags=["fipe","manager"],
+    tags=["fipe", "manager"],
     schedule="30 * * * *",
-    owner_links={"4I_team":"mailto:j.adelmar@4intelligence.com.br"},
+    owner_links={"4I_team": "mailto:j.adelmar@4intelligence.com.br"},
 ) as dag:
-
     start_pipeline = EmptyOperator(task_id="start_pipeline")
 
     trigger_brand = TriggerDagRunOperator(

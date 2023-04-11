@@ -2,3 +2,4 @@
 *__pycache__*
 airflow/keys
 airflow/logs
+*.ipynb_checkpoints*

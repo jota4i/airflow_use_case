@@ -12,17 +12,16 @@ dag_parameters = {
 
 # Parameters
 THIS_PARAM_IS_EXAMPLE = "dag variable"
-VEHICLE_TYPES = ["carros","caminhoes","motos"]
+VEHICLE_TYPES = ["carros", "caminhoes", "motos"]
 
 with DAG(
     dag_id="dag_vehicle_model",
     default_args=dag_parameters,
     description="Dag responsable from get FIPE info and save to datalake",
-    tags=["fipe","notebooks","spark"],
+    tags=["fipe", "notebooks", "spark"],
     schedule=None,
-    owner_links={"4I_team":"mailto:j.adelmar@4intelligence.com.br"},
+    owner_links={"4I_team": "mailto:j.adelmar@4intelligence.com.br"},
 ) as dag:
-
     start_pipeline = EmptyOperator(task_id="start_pipeline")
 
     task_get_brands = PapermillOperator(
