@@ -1,4 +1,5 @@
 .env
 *__pycache__*
-airflow/dags/keys
+airflow/keys
 airflow/logs
+*.ipynb_checkpoints*
