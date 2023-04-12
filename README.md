@@ -1,5 +1,3 @@
-<a href="https://airflow.apache.org/"><img src="img/Airflowlogo.png" alt= "Home" align="center" width=500 /> </a>
-
 <br>
 <br>
 
