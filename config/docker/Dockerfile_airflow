@@ -14,11 +14,9 @@ RUN apt-get update && \
   apt-get install -y \
   python3-distutils \
   python3-apt \
-  libpq-dev \
   build-essential \
-  wkhtmltopdf \
-  xvfb \
-  openjdk-17-jdk
+  openjdk-17-jdk \
+  r-base
 
 WORKDIR /opt/
 

@@ -1,3 +1,8 @@
+<a href="https://airflow.apache.org/"><img src="img/Airflowlogo.png" alt= "Home" align="center" width=500 /> </a>
+
+<br>
+<br>
+
 # Airflow example
 
 This repo add an Airflow instance and helps to undesrtand how it works.
@@ -90,8 +95,6 @@ git clone https://github.com/jota4i/airflow_use_case.git
 cd airflow_use_case
 
 cp .env_example .env
-
-55947924 - Atendimento com a Tokio Marine para confirmar se é uma empresa integra.
 
 docker compose up
 
