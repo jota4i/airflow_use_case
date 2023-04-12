@@ -29,9 +29,17 @@ BUCKET_NAME = Variable.get("BUCKET_NAME", 10)
 
 
 def get_brands(vehicle_type, **context):
-    vehicle_list = list(context["params"]["vehicle_type"])
+    vehicle_list = str(context["params"]["vehicle_type"])
+    vehicle_list = vehicle_list.replace("[", "")
+    vehicle_list = vehicle_list.replace("]", "")
+    vehicle_list = vehicle_list.replace("'", "")
+    vehicle_list = vehicle_list.split(",")
     print(vehicle_list)
     print(type(vehicle_list))
+
+    for v in vehicle_list:
+        print(f"loop - tipo {v}")
+
     if vehicle_type in vehicle_list:
         vehicles = GetVehicleBrand(vehicle_type)
         vehicles.get_vehicle_list()
@@ -63,7 +71,7 @@ def transform_raw_to_trusted(vehicle_type):
 
 with DAG(
     dag_id="dag_vehicle_brand",
-    params={"vehicle_type": ["carros, motos, caminhoes"]},
+    params={"vehicle_type": ["carros,motos,caminhoes"]},
     default_args=dag_parameters,
     description="Dag responsable from get FIPE info and save to datalake",
     tags=["fipe", "python", "spark"],

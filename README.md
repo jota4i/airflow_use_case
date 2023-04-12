@@ -8,6 +8,42 @@ https://user-images.githubusercontent.com/129964889/230986212-c1dcdef6-d0a7-4d15
 
 Airflow are a tool to orchestrate workflow, allowing integrations with any partners, open source and with a big community. 
 
+
+## UI examples
+
+### Control panel
+
+<img src="img/prints/home.png" alt= "Home" align="center" />
+
+### Dag visualization
+
+Grid <br>
+<img src="img/prints/visualization_grid.png" alt= "Grid" align="center" />
+
+Graph <br>
+<img src="img/prints/visualization_graph.png" alt= "Graph" align="center" />
+
+### Task management
+
+<img src="img/prints/task_management.png" alt= "Task management" align="center" />
+
+### Monitoring
+
+<img src="img/prints/monitoring.png" alt= "Monitoring" align="center" />
+
+### Context
+
+<img src="img/prints/documentation_context.png" alt= "Documentation" align="center" />
+
+### Notifications and alerts
+
+<img src="img/prints/dag_owner.png" alt= "Dag Owner" align="center" />
+
+### History
+
+<img src="img/prints/history.png" alt= "History" align="center" />
+
+
 ## How it works
 
 Airflow can be implemented of too many ways. In this example, we choice docker option.
@@ -33,6 +69,10 @@ The Airflow Webserver module provides a web interface for interacting with Airfl
 The Airflow Webserver interface is highly customizable and can be adjusted to meet the specific needs of different users or organizations. In addition, the Webserver is scalable and can be configured to work in clusters to handle large volumes of user traffic.
 
 
+## Providers
+
+Airflow allow integrate with many different providers, helping development. Here we can find [providers available](https://airflow.apache.org/docs/apache-airflow-providers/packages-ref.html).
+
 
 ## Ok, but how create a workflow?
 
@@ -51,9 +91,7 @@ cd airflow_use_case
 
 cp .env_example .env
 
-
-
-
+55947924 - Atendimento com a Tokio Marine para confirmar se é uma empresa integra.
 
 docker compose up
 
