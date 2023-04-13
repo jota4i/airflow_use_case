@@ -1,9 +1,6 @@
 from datetime import datetime
 from classes.Vehicles import (
     GetVehicleBrand,
-    GetVehicleModel,
-    GetVehicleModelYear,
-    GetVehicleDetails,
 )
 
 from airflow import DAG
@@ -36,9 +33,6 @@ def get_brands(vehicle_type, **context):
     vehicle_list = vehicle_list.split(",")
     print(vehicle_list)
     print(type(vehicle_list))
-
-    for v in vehicle_list:
-        print(f"loop - tipo {v}")
 
     if vehicle_type in vehicle_list:
         vehicles = GetVehicleBrand(vehicle_type)

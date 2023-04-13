@@ -10,10 +10,6 @@ dag_parameters = {
     "catchup": False,
 }
 
-# Parameters
-THIS_PARAM_IS_EXAMPLE = "dag variable"
-VEHICLE_TYPES = ["carros", "caminhoes", "motos"]
-
 with DAG(
     dag_id="dag_vehicle_model",
     default_args=dag_parameters,
