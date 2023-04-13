@@ -10,8 +10,6 @@ dag_parameters = {
     "catchup": False,
 }
 
-# Parameters
-VEHICLE_TYPES = ["carros", "caminhoes", "motos"]
 
 with DAG(
     dag_id="dag_manager",
@@ -35,12 +33,19 @@ with DAG(
         wait_for_completion=True,
     )
 
+    trigger_science = TriggerDagRunOperator(
+        task_id=f"trigger_science",
+        trigger_dag_id="dag_science",
+        wait_for_completion=True,
+    )
+
     end_pipeline = EmptyOperator(task_id="end_pipeline")
 
     # Orchestration
     start_pipeline >> trigger_brand
     trigger_brand >> trigger_model
-    trigger_model >> end_pipeline
+    trigger_model >> trigger_science
+    trigger_science >> end_pipeline
 
 
 dag.doc_md = """
