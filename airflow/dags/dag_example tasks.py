@@ -12,36 +12,36 @@ dag_parameters = {
     "catchup": False,
 }
 
+TASK_LIST = Variable.get("TASK_LIST", [], deserialize_json=True)
 
-def set_task_list():
-    task_list = ["a", "b", "c", "d"]
-    Variable.set("TASK_LIST", task_list, serialize_json=True)
+
+def print_item(item):
+    print(item)
 
 
 with DAG(
-    dag_id="dag_example",
+    dag_id="dag_example_task",
     default_args=dag_parameters,
     description="Dag responsable from get FIPE info and save to datalake",
     tags=["example", "python"],
     schedule=None,
     owner_links={"4I_team": "mailto:j.adelmar@4intelligence.com.br"},
 ) as dag:
-    land_task_list = []
-    raw_task_list = []
-    trusted_task_list = []
+    task_list = []
 
     start_pipeline = EmptyOperator(task_id="start_pipeline")
 
-    set_task_list = PythonOperator(
-        task_id=f"set_task_list",
-        python_callable=set_task_list,
-    )
+    for task in TASK_LIST:
+        print_task = PythonOperator(
+            task_id=f"print_item_{task}", python_callable=print_item, op_args=[task]
+        )
+        task_list.append(print_task)
 
     end_pipeline = EmptyOperator(task_id="end_pipeline")
 
     # Orchestration
-    start_pipeline >> set_task_list
-    set_task_list >> end_pipeline
+    start_pipeline >> task_list
+    task_list >> end_pipeline
 
 dag.doc_md = """
 # Example

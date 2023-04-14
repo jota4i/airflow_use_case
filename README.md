@@ -1,3 +1,4 @@
+[![Build and Deploy to GKE](https://github.com/jota4i/airflow_use_case/actions/workflows/google.yml/badge.svg)](https://github.com/jota4i/airflow_use_case/actions/workflows/google.yml)
 <br>
 <br>
 

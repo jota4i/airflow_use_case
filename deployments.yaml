@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gke-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow
+      tier: webserver
+  template:
+    metadata:
+      labels:
+        app: airflow
+        tier: webserver
+    spec:
+      containers:
+      - name: airflow
+        image: gcr.io/airflow4i/static-site:latest
+        env:
+        - name: LOAD_EXAMPLES
+          value: "no"
+        - name: EXECUTOR
+          value: "CeleryExecutor"
+        command:
+        - "bash"
+        - "-cx"
+        - "airflow db init"
+        - "airflow webserver"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+      # nodeSelector:
+      #   cloud.google.com/gke-nodepool: meu-pool-webserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow
+      tier: scheduler
+  template:
+    metadata:
+      labels:
+        app: airflow
+        tier: scheduler
+    spec:
+      containers:
+      - name: airflow
+        image: gcr.io/airflow4i/static-site:latest
+        env:
+        - name: LOAD_EXAMPLES
+          value: "no"
+        - name: EXECUTOR
+          value: "CeleryExecutor"
+        command:
+        - "bash"
+        - "-cx"
+        - "airflow db init"
+        - "airflow scheduler"
+      # nodeSelector:
+      #   cloud.google.com/gke-nodepool: meu-pool-scheduler
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow
+      tier: worker
+  template:
+    metadata:
+      labels:
+        app: airflow
+        tier: worker
+    spec:
+      containers:
+      - name: airflow
+        image: gcr.io/airflow4i/static-site:latest
+        env:
+        - name: LOAD_EXAMPLES
+          value: "no"
+        - name: EXECUTOR
+          value: "CeleryExecutor"
+        command:
+        - "bash"
+        - "-cx"
+        - "airflow worker"
+      # nodeSelector:
+      #   cloud.google.com/gke-nodepool: meu-pool-worker
