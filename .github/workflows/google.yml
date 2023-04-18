@@ -12,7 +12,7 @@ env:
   GKE_ZONE: us-central1   
   DEPLOYMENT_NAME: airflow
   IMAGE: airflow
-  IMAGE_NAME: gcr.io/${{ secrets.GKE_PROJECT }}/${{ env.IMAGE }}:latest
+  IMAGE_NAME: gcr.io/${{ secrets.GKE_PROJECT }}/airflow:latest
 
 jobs:
   setup-build-publish-deploy:
