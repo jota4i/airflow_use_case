@@ -48,7 +48,7 @@ jobs:
       with:
         context: .
         file: ./config/docker/Dockerfile_airflow
-       target: staging
+        target: staging
         push: true
         tags: ${{ env.IMAGE_NAME }}
 
