@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: airflow
-        image: gcr.io/airflow4i/static-site:latest
+        image: gcr.io/airflow4i/airflow:latest
         env:
         - name: LOAD_EXAMPLES
           value: "no"
