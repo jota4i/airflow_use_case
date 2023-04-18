@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gke-test
+  name: airflow-webserver
 spec:
   replicas: 1
   selector:
@@ -56,7 +56,7 @@ spec:
     spec:
       containers:
       - name: airflow
-        image: gcr.io/airflow4i/static-site:latest
+        image: gcr.io/airflow4i/sirflow:latest
         env:
         - name: LOAD_EXAMPLES
           value: "no"
@@ -88,7 +88,7 @@ spec:
     spec:
       containers:
       - name: airflow
-        image: gcr.io/airflow4i/static-site:latest
+        image: gcr.io/airflow4i/airflow:latest
         env:
         - name: LOAD_EXAMPLES
           value: "no"
