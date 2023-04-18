@@ -3,6 +3,9 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
+      - js/git-action
+  push:
+    branches:
       - main
 
 env:
