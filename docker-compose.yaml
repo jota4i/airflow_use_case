@@ -1,14 +1,12 @@
 # This is the docker-compose file for the dev environment
 ---
 version: '3'
-x-airflow-common:
-  &airflow-common
+x-airflow-common: &airflow-common
   build:
     context: .
     dockerfile: ./config/docker/Dockerfile_airflow
     target: development
-  environment:
-    &airflow-common-env
+  environment: &airflow-common-env
     AIRFLOW_DB_UPGRADE: 'true'
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
@@ -31,8 +29,7 @@ x-airflow-common:
     - ./setup.cfg:/opt/setup.cfg
 
   user: "${AIRFLOW_UID:-50000}:0"
-  depends_on:
-    &airflow-common-depends-on
+  depends_on: &airflow-common-depends-on
     redis:
       condition: service_healthy
     postgres:
@@ -272,60 +269,6 @@ services:
       /bin/sh -c " /usr/bin/mc config host rm local; /usr/bin/mc config host add --quiet --api s3v4 local http://s3:9000 minio_access_key minio_secret_key; /usr/bin/mc rb --force local/${AWS_S3_BUCKET}/; /usr/bin/mc mb --quiet local/${AWS_S3_BUCKET}/; /usr/bin/mc policy set public local/${AWS_S3_BUCKET};
         "
 
-  spark:
-    build:
-      # context: .
-      dockerfile: ./config/docker/Dockerfile_spark
-      # target: development
-      # image: docker.io/bitnami/spark:3.3
-    restart: always
-    environment:
-      - SPARK_MODE=master
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-      - SPARK_USER=spark
-    ports:
-      - '8080:8080'
-    volumes:
-      - ./airflow/keys/:/home/keys/
-      - ./airflow/dags/drivers/:/home/drivers/
-
-  spark-worker:
-    build:
-      # context: .
-      dockerfile: ./config/docker/Dockerfile_spark
-      # target: development
-      # image: docker.io/bitnami/spark:3.3
-    restart: always
-    environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER_URL=spark://spark:7077
-      - SPARK_WORKER_MEMORY=1G
-      - SPARK_WORKER_CORES=3
-      - SPARK_RPC_AUTHENTICATION_ENABLED=no
-      - SPARK_RPC_ENCRYPTION_ENABLED=no
-      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
-      - SPARK_SSL_ENABLED=no
-      - SPARK_USER=spark
-    volumes:
-      - ./airflow/keys/:/home/keys/
-
-  jupyter:
-    build:
-      dockerfile: ./config/docker/Dockerfile_jupyter
-    # image: jupyter/pyspark-notebook
-    restart: always
-    command: /bin/bash -c "start.sh jupyter notebook --NotebookApp.token=''"
-    env_file:
-      - .env
-    ports:
-      - 8888:8888
-    volumes:
-      - ./airflow/dags/:/home/jovyan/work/dags
-      - ./airflow/keys/:/home/keys/
-      - ./requirements/:/requirements/
 volumes:
   postgres-db-volume:
   minio: {}

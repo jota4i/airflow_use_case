@@ -1,6 +1,0 @@
-FROM jupyter/pyspark-notebook
-
-USER jovyan
-RUN pip install --upgrade pip setuptools wheel
-COPY ./requirements/ /home/requirements/
-RUN pip install --no-cache-dir -r /home/requirements/requirements_dev.txt
